@@ -1,21 +1,23 @@
 import tkinter as tk
 from tkinter import *
-from tkinter import filedialog # thu vien SUB-LIB tkinter = Hop thoai ho tro Mo file
-from tkinter import messagebox as msg # thu vien SUB-LIB tkinter = Hop thong bao = messagebox
+from tkinter import filedialog
 from PIL import Image, ImageTk
-#B2: THIET LAP & KHOI TAO DOI TUONG FORM
+from complain import complain_render
+
 wf = tk.Tk()
 wf.title("N19DCPT064")
 wf.geometry("600x500")
 wf.resizable(tk.FALSE, tk.FALSE)
 
+
 def OpenTextFile():
     global filepath
-    filepath = filedialog.askopenfilename(title = "File to translate",
-    filetypes = (("Audio file (*.mp3)", "*.mp3"),))
+    filepath = filedialog.askopenfilename(title="File to translate",
+                                          filetypes=(("Audio file (*.mp3)", "*.mp3"),))
     f1 = open(filepath, "r", encoding="utf-8")
     print("filepath", filepath)
     f1.close()
+
 
 # Left side
 # tk.Label(wf,text="Check Valid Video",relief = tk.SUNKEN, width = 25).place(x=5, y=5)
@@ -24,21 +26,23 @@ def OpenTextFile():
 # tk.Label(wf,text="SKU Available",relief = tk.SUNKEN, width = 25).place(x=700, y=5)
 # tk.Frame(wf, width = 380, height = 600, relief = tk.SUNKEN, borderwidth = 3).place(x=520, y=40)
 image_path = 'Logo_PTIT_University.png'
-img= Image.open(image_path)
+img = Image.open(image_path)
 
-#Resize the Image using resize method
-resized_image= img.resize((100,100), Image.ANTIALIAS)
+# Resize the Image using resize method
+resized_image = img.resize((100, 100), Image.ANTIALIAS)
 image = ImageTk.PhotoImage(resized_image)
 
-canvas= Canvas(wf, width= 300, height= 300)
+canvas = Canvas(wf, width=300, height=300)
 canvas.pack()
-canvas.create_image(110,40, anchor=NW, image=image)
+canvas.create_image(100, 80, anchor=NW, image=image)
 
-btnCheckReview = tk.Button(wf,text = "Review")
-btnCheckReview.place(x=250, y=200, width=100)
+btnCheckReview = tk.Button(
+    wf, text="Complain", command=lambda: complain_render(wf))
+btnCheckReview.place(x=225, y=200, width=150)
 
-btnSku = tk.Button(wf,text = "Inventory")
-btnSku.place(x=250, y=250, width=100)
+btnSku = tk.Button(wf, text="Inventory")
+btnSku.place(x=225, y=225, width=150)
+
 
 # frame = tk.Frame(wf, width = 380, height = 300, relief = tk.SUNKEN, borderwidth = 3)
 # frame.place(x=5,y=40)
